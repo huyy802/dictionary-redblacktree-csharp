@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace RedBlackTreeImplementation
@@ -9,8 +10,35 @@ namespace RedBlackTreeImplementation
         Black
     }
 
-    public class RedBlackTree<TKey, TValue> where TKey : IComparable<TKey>
+    public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>> where TKey : IComparable<TKey>
     {
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+        {
+            return Traverse(_root).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private IEnumerable<KeyValuePair<TKey, TValue>> Traverse(Node node)
+        {
+            if (node != null)
+            {
+                foreach (KeyValuePair<TKey, TValue> pair in Traverse(node.Left))
+                {
+                    yield return pair;
+                }
+
+                yield return new KeyValuePair<TKey, TValue>(node.Key, node.Value);
+
+                foreach (KeyValuePair<TKey, TValue> pair in Traverse(node.Right))
+                {
+                    yield return pair;
+                }
+            }
+        }
         public KeyValuePair<TKey, TValue> GetRandomNode()
         {
             if (IsEmpty)

@@ -11,7 +11,7 @@
 
         <StackPanel Orientation="Horizontal" Margin="10">
             <TextBlock Text="Search: " VerticalAlignment="Center" Margin="0,0,10,0" />
-            <TextBox x:Name="txtSearch" Width="200" />
+            <TextBox x:Name="txtSearch" Width="200"  TextChanged="OnSearchTextChanged"/>
             <Button Content="Search" Click="OnSearchClicked" Margin="10,0" />
             <Button Content="Random Word" Click="OnRandomWordClicked" Margin="10,0" />
         </StackPanel>
